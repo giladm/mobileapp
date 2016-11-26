@@ -1,0 +1,28 @@
+<ion-view title="Register">
+  <ion-content class="padding">
+    <form name="myForm" novalidate>
+      <div class="list">
+        <label class="item item-input">
+          <input type="email" placeholder="example@gmail.com" name="username" ng-model="user.name" ng-minlength="5" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,24})$/" required>
+        </label>
+        <label class="item item-input">
+          <input type="password" placeholder="Password" name="password" ng-model="user.password" required>
+        </label>
+        <label class="item item-input">
+          <input type="password" placeholder="Retype Password" name="new_password2" ng-pattern="{{user.password}}" ng-model="new_password2" required>
+        </label>
+      </div>
+        <div class="padding">
+            <p ng-show="myForm.username.$error.required">* Username is required</p>
+            <p ng-show="myForm.username.$invalid && !myForm.username.$pristine">* Username must be an email address</p>
+            <p ng-show="myForm.username.$error.minlength">* Username must be longer than 5 characters</p>
+            <p ng-show="myForm.password.$error.required">* Password is required</p>
+            <p ng-show="myForm.password.$error.minlength">* Password must be longer than 6 characters</p>
+            <p ng-show="myForm.new_password2.$error && myForm.$invalid">*Passwords not matching</p>
+        </div>
+        <div class="padding">
+          <button type="button" class="button button-block button-positive" ng-disabled="myForm.$invalid" ng-click="signup()">Sign up</button>
+        </div>
+    </form>
+  </ion-content>
+</ion-view>

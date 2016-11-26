@@ -1,0 +1,36 @@
+<ion-view view-title="Dish">
+    <ion-content class="has-header" ng-init="analyzeImage()">
+        <ion-list>
+            <div class="row item item-divider">      
+                <div class="col col-60">{{header.a}}</div>
+                <div class="col col-25">{{header.b}}</div>
+            </div>
+            <ion-item href="#/app/menu/{{result}}" ng-repeat="result in results.scores">
+                <div class="row no-padding">
+                    <div class="col  col-90">{{result.shortName}}</div>
+                    <div class="col  col-10">{{result.actualServing}}</div>
+                    <i class="icon ion-chevron-right icon-accessory"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+    <form name="myForm" >
+        <div class="row header item item-divider">      
+            <div class="col col-50">{{header2.nutrient}}</div>
+            <div class="col col-30">{{header2.total}}</div>
+            <div class="col col-20">{{header2.unit}}</div>
+        </div>
+        <div class="row no-padding" ng-repeat="nutrient in totalNutrients">
+            <div class="col col-50">{{nutrient.nutrientName}}</div>
+            <div class="col col-30">{{nutrient.nutrientTotal}}</div>
+            <div class="col col-20">{{nutrient.nutrientUnit}}</div>
+        </div>   
+        <img ng-src="{{pic}}" class="selPicture">
+      <div class="padding" ng-if="showAddMealButton==true">
+        <button type="button" class="button button-block button-positive" ui-sref="app.addmeal">Add Dish to Food Diary</button>
+        </div>
+      <div class="padding" ng-if="showAddMealButton==false">
+        <button type="button" class="button button-block button-positive" ui-sref="app.login">Login to Add Dish</button>
+        </div>
+    </form>  
+    </ion-content>
+</ion-view>

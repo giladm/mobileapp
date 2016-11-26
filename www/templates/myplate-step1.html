@@ -1,0 +1,14 @@
+<ion-view view-title="My Plate" hide-back-button="false" cache-view="false">
+    <ion-content class="has-header" ng-init="initHidebutton()">
+        <div class="row">
+            <div class="col"><button class="button button-block button-positive" ng-click="takePicture()">Take Picture</button></div>
+            <div class="col"><button class="button button-block button-balanced" ng-click="getImageFromGallery()">Photo Gallery</button></div>
+        </div>
+        <img ng-src="{{pic}}" class="selPicture">
+        <div class="row">
+            <div ng-hide=hidebutton class="col">
+                <a class="button button-block button-positive" href="#/app/analyzemyplate">Analyze</a> 
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

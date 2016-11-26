@@ -1,0 +1,21 @@
+<ion-view title="Home" hide-back-button="false" cache-view="false">
+   <ion-content class="padding">
+    <div class="card">
+      <div class="item item-divider">Welcome {{username}} to What's on my Plate
+      </div>
+      <img ng-src="{{pic}}" class="selPicture">
+      <div class="item item-left item-text-wrap" ng-class="">
+          <p>What's on my Plate is a mobile app that gives the user nutrition information about a meal when the user snaps a picture of it. You can use the app as a guest, or you can log in and record your meals.</p>
+      </div>
+      <div class="card">
+          <div class="padding" ng-if="realUserLoggedIn==true">
+            <button type="button" class="button button-block button-positive" ng-click="gotoMealdiary()">Meal Diary</button>
+            <button type="button" class="button button-block button-positive" ng-click="gotoMyplate()">What's on my Plate</button>
+            <button class="button button-full button-assertive" ng-click="logout()">Logout</button>
+          </div>
+          <div class="padding" ng-if="realUserLoggedIn==false">
+            <button type="button" class="button button-block button-positive" ng-click="gotoLogin()">Log in/Register</button>
+            <button type="button" class="button button-block button-positive" ng-click="gotoMyplate()">What's on my Plate</button>
+      </div>
+  </ion-content>
+</ion-view>
