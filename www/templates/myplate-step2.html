@@ -25,10 +25,10 @@
             <div class="col col-20">{{nutrient.nutrientUnit}}</div>
         </div>   
         <img ng-src="{{pic}}" class="selPicture">
-      <div class="padding" ng-if="showAddMealButton==true">
+      <div class="padding" ng-if="showAddMealButton==true && showToDiarayButton==true">
         <button type="button" class="button button-block button-positive" ui-sref="app.addmeal">Add Dish to Food Diary</button>
         </div>
-      <div class="padding" ng-if="showAddMealButton==false">
+      <div class="padding" ng-if="showAddMealButton==false && showToDiarayButton==true">
         <button type="button" class="button button-block button-positive" ui-sref="app.login">Login to Add Dish</button>
         </div>
     </form>  

@@ -5,6 +5,7 @@ angular.module('wiomPlate.controllers', [])
     $ionicLoading,$http,baseURL,$ionicPopup, AuthService,imageService) {
     var originalPath =$location.$$path ; // determine by the menu selected
     var galleryOrCamera = 0 ;//gallery
+
     $scope.initHidebutton = function () {
         $scope.hidebutton= true ;
         $scope.pic = '';
@@ -17,17 +18,8 @@ angular.module('wiomPlate.controllers', [])
                 fileEntry.file(function(fileObj) {
                     $ionicLoading.hide();
                     var imageSize = fileObj.size ;
-                    console.log("Image size:= " +imageSize);
                     if (imageSize > 2097152) {
-                        console.log("BEFORE Image size:= " +imageSize);
-                        imageService.resize(fileObj, 256, 256)
-                            .then(function (resizedImage) {
-                                console.log("After Image size:= " +resizedImage.size);
-                            })                        
-                        console.log('After resize');
-                        $scope.hidebutton= true ;
-                        showAlert();
-                        return ;
+                        console.log("Image size is BIG:= " +imageSize);
                     }
                     $scope.hidebutton= false ;
                     DetailService.setImageToAnalyze($scope.pic);
@@ -116,8 +108,10 @@ angular.module('wiomPlate.controllers', [])
                 return ;
             } else if (imageResults.length > 0) {
                 $scope.header ={'a':'Dish','b':'Actual Serving'};
+                $scope.showToDiarayButton=true;
             } else {
                 $scope.header ={'a':'Image was not recognized as food.','b':''};
+                $scope.showToDiarayButton=false;
                 return ;
             }
             $scope.results = imageResults;
@@ -314,7 +308,21 @@ angular.module('wiomPlate.controllers', [])
 
 // For quick browser testing
 // analyze the image via api/uploadtest and api/similarity
-.controller('TestuiController', function($scope, DetailService,$cordovaCamera, $cordovaFile,$ionicLoading,baseURL) { 
+.controller('TestuiController', function($scope, DetailService,$cordovaCamera, $ionicLoading,baseURL) { 
+ /*   var canvas = document.getElementById('signatureCanvas');
+    console.log('testui canvas',canvas)
+    var signaturePad = new SignaturePad(canvas);
+ 
+    $scope.clearCanvas = function() {
+        signaturePad.clear();
+    }
+ 
+    $scope.saveCanvas = function() {
+        var sigImg = signaturePad.toDataURL();
+        console.log('sigImg',sigImg,'size',sigImg.size)
+        $scope.signature = sigImg;
+    }
+*/
     $scope.initHidebutton = function () {
         $scope.hidebutton= true ;
         $scope.pic = '';
@@ -323,6 +331,36 @@ angular.module('wiomPlate.controllers', [])
     }
     $scope.getDummyImage = function() { 
         $scope.pic ='images/testimage.jpg';
+        /*
+        var img = document.getElementById('imgid');
+        console.log('getDummyImage canvas',canvas,'img',img,'size',img.size)
+        if (canvas.getContext) {    
+            console.log('canvas.getContext',canvas.getContext);
+            var MAX_WIDTH = 250;
+            var MAX_HEIGHT = 250;
+            var width = img.width;
+            var height = img.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+            field.dataUrl = canvas.toDataURL();
+
+            console.log('OUT',field.dataUrl);  // Works on browser but not iOS - Returns 'data:,' on iOs
+        }
+    /*/        
         DetailService.initDetailService() ;
         DetailService.setImageToAnalyze($scope.pic);
         $scope.hidebutton= false ;

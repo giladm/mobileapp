@@ -29,6 +29,10 @@ angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate
       cordova.plugins.Keyboard.disableScroll(true);
 
     }
+    setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 100);
+
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();

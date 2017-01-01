@@ -293,7 +293,7 @@ angular.module('wiomPlate.services', ['ngResource'])
   var lanczos = lanczosGenerator(NUM_LOBES)
 
   // resize via lanczos-sinc convolution
-  this.resize = function (img, width, height) {
+  this.resize = function (img, width, height,canvas) {
     var self = { }
 
     self.type    = "image/png"
@@ -303,11 +303,11 @@ angular.module('wiomPlate.services', ['ngResource'])
 //    self.canvas = document.createElement('tempCanvas')
 
 // create the canvas
-        var canvas = document.getElementById('tempCanvas');
-    console.log('start canvas',canvas);
-        canvas.width = 300;
+//        var canvas = document.getElementById('tempCanvas');
+    console.log('IN start canvas',canvas,'typeof' ,typeof canvas.width);
+        canvas.width = 300.0;
         canvas.height = 300;
-    console.log('before context canvas',canvas);
+    console.log('after set context canvas',canvas,'w',canvas.width);
         var context = canvas.getContext('2d');
         // draw a rectangular white frame for our content
     console.log('The canvas',canvas);
