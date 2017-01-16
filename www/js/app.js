@@ -161,12 +161,23 @@ angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate
    .state('app.trainwatson', {
       url: '/trainwatson',
       views: {
-        'mainContent': {
-          templateUrl: 'templates/trainwatson.html',
-            controller: 'TrainWatsonController'
-        }
+      'mainContent': {
+          templateUrl: 'templates/myplate-step1.html' ,
+          controller :'ImageController'
       }
-    })
+    }
+  })
+
+  .state('app.traindish', {
+    url: '/traindish',
+    views: {
+      'mainContent': {
+        templateUrl: 'templates/traindish.html',
+        controller: 'TrainDishController' 
+      }
+    }
+  })
+
  // login
    .state('app.login', {
     url: '/login',

@@ -2,12 +2,20 @@ angular.module('wiomPlate.controllers', [])
 
 // image loader
 .controller('ImageController', function($scope,$location, DetailService,$cordovaCamera, $cordovaFileTransfer,
-    $ionicLoading,$http,baseURL,$ionicPopup, AuthService,imageService) {
+    $ionicLoading,$http,baseURL,$ionicPopup, AuthService,imageService,$state) {
     var originalPath =$location.$$path ; // determine by the menu selected
     var galleryOrCamera = 0 ;//gallery
 
+    if (originalPath=='/app/trainwatson') {
+        $scope.pageTitle ="Train";
+        $scope.buttonLabel='Train';
+    } else {
+        $scope.pageTitle ="My Plate";
+        $scope.buttonLabel='Analyze';
+    } 
+
     $scope.initHidebutton = function () {
-        $scope.hidebutton= true ;
+        $scope.showButton= false ;
         $scope.pic = '';
         DetailService.initDetailService() ;
     }
@@ -21,7 +29,7 @@ angular.module('wiomPlate.controllers', [])
                     if (imageSize > 2097152) {
                         console.log("Image size is BIG:= " +imageSize);
                     }
-                    $scope.hidebutton= false ;
+                    $scope.showButton= true ;
                     DetailService.setImageToAnalyze($scope.pic);
                     console.log("Ready to analyze image:", $scope.pic);    
                 });
@@ -34,7 +42,7 @@ angular.module('wiomPlate.controllers', [])
     var camErr2 = function(e) {
         $ionicLoading.hide();
         console.log("Error from getImageFromGallery:", e);    
-        $scope.hidebutton= true ;
+        $scope.showButton= false ;
         $scope.pic = '';
     }
 
@@ -45,7 +53,7 @@ angular.module('wiomPlate.controllers', [])
         var options = { 
             quality : 25, 
             destinationType : Camera.DestinationType.FILE_URI, //DATA_URL, 
-            sourceType : Camera.PictureSourceType.CAMERA, 
+            sourceType : Camera.PictureSourceType.CAMERA, //PHOTOLIBRARY, will use library instead
             allowEdit : true,
             encodingType: Camera.EncodingType.JPEG,
             targetWidth: 250,
@@ -74,10 +82,19 @@ angular.module('wiomPlate.controllers', [])
 
         alertPopup.then(function(res) {
              console.log('Image too big');
-             $scope.hidebutton= true ;
+             $scope.showButton= false ;
         });
     };
 
+    $scope.analyzeOrTrain  = function() {
+        console.log('analyzeOrTrain originalPath=',originalPath);
+        if (originalPath=='/app/trainwatson') {
+            $state.go('app.traindish') ;
+        } else {
+            $state.go('app.analyzemyplate') ;
+        }
+
+    }
  	$scope.analyzeImage = function() { 
         // check if user logged in to display diary button
         console.log('analyzeImage',originalPath)
@@ -186,7 +203,9 @@ angular.module('wiomPlate.controllers', [])
 
     }
 }) 
-
+.controller('TrainDishController', function($scope,DetailService,$http,baseURL ) {
+    console.log('TrainDishController statrs');
+})
 .controller('NavCtrl', function($scope, $location, $state) {
  
   $scope.create = function() {
@@ -324,12 +343,13 @@ angular.module('wiomPlate.controllers', [])
     }
 */
     $scope.initHidebutton = function () {
-        $scope.hidebutton= true ;
+        $scope.showButton= false ;
         $scope.pic = '';
         DetailService.initDetailService() ;
         //console.log('TestuiController initHidebutton hide and seek',$scope.hidebutton)
     }
     $scope.getDummyImage = function() { 
+        console.log('start get getDummyImage')
         $scope.pic ='images/testimage.jpg';
         /*
         var img = document.getElementById('imgid');
@@ -363,9 +383,8 @@ angular.module('wiomPlate.controllers', [])
     /*/        
         DetailService.initDetailService() ;
         DetailService.setImageToAnalyze($scope.pic);
-        $scope.hidebutton= false ;
+        $scope.showButton= true ;
     }  
-//    console.log('TestuiController. hidebutton:',$scope.hidebutton ,'total.length:'+DetailService.getServingArray().length);
 })
 
 // Detail Nutrients Page
@@ -594,7 +613,7 @@ angular.module('wiomPlate.controllers', [])
 })
 
 .controller('TrainWatsonController', ['$scope','baseURL',function($scope) {
-        console.log('trainwatson is called');
+        console.log('Train watson is called');
  }])
 
 .controller('AboutController', ['$scope', 'baseURL',function($scope, baseURL) {
