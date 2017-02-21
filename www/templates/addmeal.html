@@ -1,0 +1,40 @@
+<ion-view view-title="Diary" cache-view="true">
+  <ion-content class="has-header" ng-init="initDiary()">
+    <div class="card">         
+      <img ng-src="{{pic}}" class="enlargePicture">
+      <label class="item item-body item-text-wrap"><span style="color:blue">Dish:&nbsp</span>{{nutrientName}}</label>
+      <label class="item item-body item-text-wrap"><span style="color:blue">Serving:&nbsp</span>{{serving}}</label>
+      <label class="item item-body item-text-wrap"><span style="color:blue">Calories in this Meal:&nbsp</span>{{header.b}}</label>
+      <div class="row item-divider">
+        <div class="col col-30">
+          <label class="item item-body item-text-wrap"><span style="color:blue">Meal Date</span>
+          </lable>
+        </div>
+        <div class="col col-70">
+            <ionic-datepicker idate="selectedDate1">
+                <button class="button button-block" ng-click="openDatePicker()"> {{selectedDate1 | date:'dd-MMMM-yyyy' }}</button>
+            </ionic-datepicker>
+        </div>
+      </div>
+      <div class="row item-divider">
+        <div class="col col-30">
+          <label class="item item-body item-text-wrap"><span style="color:blue">Meal Type</span>
+          </lable>
+        </div>
+        <div class="col col-70">
+            <select ng-init="initMealSelected()" ng-model="mealselected" 
+    ng-options="count.id as count.name for count in mealOptions" ng-change="onChangeMeal(mealOptions[mealselected-1])">
+            </select>
+        </div>
+      </div>
+      <form name="myForm" >
+        <div class="padding" ng-if="showAddMealButton==true">
+          <button type="button" class="button button-block button-positive" ng-click="AddMealToDiary()">Add Meal</button>
+        </div>
+        <div class="padding" ng-if="showAddMealButton==false">
+          <button type="button" class="button button-block button-positive" ui-sref="app.login">Login to Add Dish</button>
+        </div>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

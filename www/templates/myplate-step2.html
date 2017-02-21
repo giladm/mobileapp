@@ -1,36 +1,20 @@
-<ion-view view-title="Dish">
-    <ion-content class="has-header" ng-init="analyzeImage()">
-        <ion-list>
-            <div class="row item item-divider">      
-                <div class="col col-60">{{header.a}}</div>
-                <div class="col col-25">{{header.b}}</div>
-            </div>
-            <ion-item href="#/app/menu/{{result}}" ng-repeat="result in results.scores">
-                <div class="row no-padding">
-                    <div class="col  col-90">{{result.shortName}}</div>
-                    <div class="col  col-10">{{result.actualServing}}</div>
-                    <i class="icon ion-chevron-right icon-accessory"></i>
-                </div>
-            </ion-item>
-        </ion-list>
-    <form name="myForm" >
-        <div class="row header item item-divider">      
-            <div class="col col-50">{{header2.nutrient}}</div>
-            <div class="col col-30">{{header2.total}}</div>
-            <div class="col col-20">{{header2.unit}}</div>
+<ion-view view-title="Your Dish" cache-view="false">
+    <ion-content class="list" ng-init="initAnalyzeImage()">
+        <div class="item item-divider">
+            {{instructUser1}}
+        </div>    
+        <ion-radio class="item-thumbnail-left item-radio-right item-text-wrap" ng-value="{{result.dix}}" ng-click='newDishSelected({{result.dix}})' ng-repeat="result in results.scores">
+            <img ng-src="{{result.icon}}">
+            <h2>{{result.foodId}}</h2>
+            <h4>{{result.calories}}</h4>
+        </ion-radio>
+        <div class="card">
+          <div class="padding" ng-if="isDishSelected==true">
+            <button type="button" class="button button-block button-positive" ng-click="gotoDishDetails()">Yes. This is my dish</button>
+          </div>
+          <div class="padding" ng-if="isDishSelected==false">
+            <button type="button" class="button button-block button-assertive" ng-click="gotoNewDishEntry()">I want to create my own dish</button>
+          </div>
         </div>
-        <div class="row no-padding" ng-repeat="nutrient in totalNutrients">
-            <div class="col col-50">{{nutrient.nutrientName}}</div>
-            <div class="col col-30">{{nutrient.nutrientTotal}}</div>
-            <div class="col col-20">{{nutrient.nutrientUnit}}</div>
-        </div>   
-        <img ng-src="{{pic}}" class="selPicture">
-      <div class="padding" ng-if="showAddMealButton==true && showToDiarayButton==true">
-        <button type="button" class="button button-block button-positive" ui-sref="app.addmeal">Add Dish to Food Diary</button>
-      </div>
-      <div class="padding" ng-if="showAddMealButton==false && showToDiarayButton==true">
-        <button type="button" class="button button-block button-positive" ui-sref="app.login">Login to Add Dish</button>
-      </div>
-    </form>  
     </ion-content>
 </ion-view>

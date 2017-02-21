@@ -10,6 +10,20 @@
 	margin-right: auto;
 	display:block;
 }
+.enlargePicture {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70% !important;
+  height: 70%;
+  display:block;
+}
+.smallPicture {
+  margin-left: auto;
+  margin-right: auto;
+  width: 30% !important;
+  height: 30%;
+  display:block;
+}
 .transparent {
   background: transparent !important;
 }
@@ -68,3 +82,26 @@ p.info {
 .no-padding {
     padding: 0px !important;
 }
+
+/* for tables */
+.header .colx {
+    background-color:lightgrey;
+}
+
+.colx {
+    border: solid 1px grey;
+    border-bottom-style: none;
+    border-right-style: none;
+}
+
+.colx:last-child {
+    border-right: solid 1px grey;
+}
+
+.rowx:last-child .colx {
+    border-bottom: solid 1px grey;
+}
+
+
+
+

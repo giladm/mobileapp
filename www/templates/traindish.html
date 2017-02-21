@@ -1,75 +1,39 @@
-<ion-view view-title="Train">
+<ion-view view-title="Create New Dish">
   <ion-content class="padding">
     <form name="trainForm" novalidate>
       <div class="item item-body item-text-wrap">
-        <div class="row no-padding">
-          <div class="col col-25"><span style="color:blue">Dish: </span></div>
-          <div class="col col-70">
-            <label class="item item-input">
-              <input type="text" placeholder="Sweet and Sower salad" name="name" ng-model="dish.dishname" ng-minlength="6" required>
-            </label>
-          </div>
-        </div>
-        <div class="row no-padding">
-            <div class="col col-30"><span style="color:blue">Serving Size:</span></div>
-            <div class="col col-50">
+        <div class="list">
+          <img ng-src="{{pic}}" class="enlargePicture">
+          <label class="item item-input"><span style="color:blue">Dish :</span>
+            <input type="text" placeholder=" Sweet and sower salad" name="dishname" ng-model="dishInfo.name" ng-minlength="6"  ng-maxlength="100" required>
+          </label>
+          <label class="item item-input"><span style="color:blue">Serving Size :</span>
               <select ng-init="populateLists()" ng-model="size.index" ng-options="items.indexOf(item) as item for item in items" ng-change="changedTotal()">
               </select>
-            </div>
+          </label>
+          <div class="row header">
+              <div class="colx col-33">Nutrient</div>
+              <div class="colx col-33">Measurement</div>
+              <div class="colx col-33">Unit</div>
+          </div>
+          <div class="row" ng-repeat="nutrient in dishInfo.nutInfo">
+              <div class="col colx col-33">{{nutrient.name}}</div>
+              <div class="col colx col-33">
+                  <input type="number" placeholder="0" name="value" ng-model="nutrient.v" ng-minlength="1" >
+              </div>
+              <div class="col colx col-33">{{nutrient.u}}</div>
+          </div>   
+          <div>   
+            <p ng-show="trainForm.dishname.$error.required">* Dishname is required</p>
+            <p ng-show="trainForm.dishname.$error.minlength">* Dish name must be longer than 6 characters</p>
+            <p ng-show="trainForm.dishname.$error.maxlength" class="help-block">Dish name is too long. Max 100 characters.</p>
+        <p ng-show="trainForm.dishname.$invalid && trainForm.value.$invalid && !trainForm.dishname.$pristine">* Dish name, Serving size and Calories are required fields</p>
+          </div>   
+          <div class="padding">
+              <button type="button" class="button button-full button-balanced" ng-disabled="trainForm.$invalid" ng-click="enterNewDish()">Make your Own Dish</button>
+          </div>
         </div>
-        <div class="padding">
-          <p ng-show="trainForm.dishname.$error.required">* Dishname is required</p>
-          <p ng-show="trainForm.dishname.$error.minlength">* Dish name must be longer than 6 characters</p>
-        </div>    
       </div>
-    <div class="row header">
-        <div class="col col-49">Nutrient</div>
-        <div class="col col-26">Measurement</div>
-        <div class="col col-25">Unit</div>
-    </div>
-    <div class="row" ng-repeat="nutrient in nutrients">
-        <div class="col col-50">{{nutrient.name}}</div>
-        <div class="col col-25">{{nutrient.value}}</div>
-        <div class="col col-25">{{nutrient.m}}</div>
-    </div>   
-    <ion-list>
-  <ion-item>
-    <ion-label color="primary">Inline Label</ion-label>
-    <ion-input placeholder="Text Input"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="primary" fixed>Fixed Label</ion-label>
-    <ion-input type="tel" placeholder="Tel Input"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-input type="number" placeholder="Number Input with no label"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="primary" stacked>Stacked Label</ion-label>
-    <ion-input type="email" placeholder="Email Input"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="primary" stacked>Stacked Label</ion-label>
-    <ion-input type="password" placeholder="Password Input"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="primary" floating>Floating Label</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-input placeholder="Clear Input" clearInput></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-textarea placeholder="Enter a description"></ion-textarea>
-  </ion-item>
-</ion-list>
-  </form>
+    </form>
   </ion-content>
 </ion-view>

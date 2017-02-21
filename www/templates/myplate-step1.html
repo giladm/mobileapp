@@ -1,17 +1,14 @@
-<ion-view view-title="{{pageTitle}}" hide-back-button="false" cache-view="false">
+<ion-view view-title="{{pageTitle}}" hide-back-button="false">
     <ion-content class="has-header" ng-init="initHidebutton()">
         <div class="row">
-            <div class="col"><button class="button button-block button-positive" ng-click="takePicture()">Take Picture</button></div>
+            <div class="col"><button class="button button-block button-positive" ng-click="getImageFromCamera()">Take Picture</button></div>
             <div class="col"><button class="button button-block button-balanced" ng-click="getImageFromGallery()">Photo Gallery</button></div>
         </div>
-        <img ng-src="{{pic}}" class="selPicture">
+        <img ng-src="{{pic}}" class="selPicture" ng-if="showButton==true">
         <div class="row">
           <div class="col text-center" ng-if="showButton==true">
             <button class="button button-block button-positive" ng-click="analyzeOrTrain()">{{buttonLabel}}</button>
           </div>
-        </div>
-        <div  class="col text-center" ng-if="showAddMealButton==true && showToDiarayButton==true">
-          <button class="button button-block button-positive" ui-sref="app.addmeal">Add Dish to Food Diary</button>
         </div>
     </ion-content>
 </ion-view>

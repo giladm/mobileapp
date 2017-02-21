@@ -1,30 +1,25 @@
-<ion-view view-title="Nutrients">
+<ion-view view-title="Dish Nutrients">
   <ion-content>
     <div class="card">         
-      <div class="item item-body item-text-wrap">
-        <div class="row no-padding">
-          <div class="col col-25"><span style="color:blue">Dish: </span></div>
-          <div class="col col-70">{{nutrientName}}</div>
-        </div>
-        <div class="row no-padding">
-            <div class="col col-30"><span style="color:blue">Serving Size:</span></div>
-            <div class="col col-50">
-              <select ng-init="populateLists()" ng-model="size.index" ng-options="items.indexOf(item) as item for item in items" ng-change="changedTotal()">
-              </select>
-            </div>
-        </div>
-
+      <img ng-src="{{pic}}" class="enlargePicture">
+      <label class="item item-body item-text-wrap"><span style="color:blue">Dish :</span>{{nutrientName}}</label>
+      <div class="item item-input"><span style="color:blue">Serving Size :</span>
+          <select ng-init="populateLists()" ng-model="size.index" ng-options="items.indexOf(item) as item for item in items" ng-change="changedTotal()">
+          </select>
       </div>
+      <div class="row header">
+          <div class="colx col-40">Nutrient</div>
+          <div class="colx col-40">Measurement</div>
+          <div class="colx col-20">Unit</div>
+      </div>
+      <div class="row" ng-repeat="nutrient in nutrients">
+          <div class="col col-40">{{nutrient.name}}</div>
+          <div class="col col-40">{{nutrient.value}}</div>
+          <div class="col col-20">{{nutrient.m}}</div>
+      </div>   
     </div>
-    <div class="row header">
-        <div class="col col-49">Nutrient</div>
-        <div class="col col-26">Measurement</div>
-        <div class="col col-25">Unit</div>
+    <div class="padding" ng-if="showAddDishDiary==true">
+      <button type="button" class="button button-block button-positive" ng-click="gotoAddDishDiary()">Add Dish to Food Diary</button>
     </div>
-    <div class="row" ng-repeat="nutrient in nutrients">
-        <div class="col col-50">{{nutrient.name}}</div>
-        <div class="col col-25">{{nutrient.value}}</div>
-        <div class="col col-25">{{nutrient.m}}</div>
-    </div>   
   </ion-content>
 </ion-view>

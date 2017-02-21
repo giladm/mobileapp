@@ -6,19 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate.controllers',
   'wiomPlate.services'])
-/*
-.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
-  $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
-    if (!AuthService.isAuthenticated()) {
-      console.log('in app.run',next.name);
-      if (next.name !== 'app.login' && next.name !== 'app.register') {
-        event.preventDefault();
-        $state.go('app.login');
-      }
-    }
-  })
-})
-/*/
+
 .run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaSplashscreen, $timeout,
     $cordovaPush) {
   $ionicPlatform.ready(function() {
@@ -29,9 +17,13 @@ angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate
       cordova.plugins.Keyboard.disableScroll(true);
 
     }
-    setTimeout(function() {
-        navigator.splashscreen.hide();
-    }, 100);
+    if (window.cordova) {      // running on device/emulator
+          setTimeout(function() {
+            navigator.splashscreen.hide();
+          }, 100);
+    } else {
+//      console.log('NOT running on device')
+    }
 
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -49,6 +41,7 @@ angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate
     });
 
     $rootScope.$on('$stateChangeStart', function () {
+        //console.log('---------->>stateChangeStart')
         $rootScope.$broadcast('loading:show');
     });
 
@@ -99,7 +92,7 @@ angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate
   })
 
   .state('app.dishdetails', {
-    url: '/menu/:name',
+    url: '/menu/:dish',
     views: {
       'mainContent': {
         templateUrl: 'templates/dishdetail.html',
@@ -124,26 +117,26 @@ angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate
     views: {
       'mainContent': {
           templateUrl: 'templates/myplate-step2.html',
-          controller :'ImageController'
+          controller :'AnalyzeController'
       }
     }
   })
  
-   .state('app.analyzemyplate', {
-    url: '/analyzemyplate',
+   .state('app.analyzedish', {
+    url: '/analyzedish',
     views: {
       'mainContent': {
           templateUrl: 'templates/myplate-step2.html' ,
-          controller :'ImageController'
+          controller :'AnalyzeController'
       }
     }
   })
 
   .state('app.addmeal', {
-    url: '/addmeal',
+    url: '/addmeal/:dish',
     views: {
       'mainContent': {
-          templateUrl: 'templates/myplate-step3.html' ,
+          templateUrl: 'templates/addmeal.html' ,
           controller :'MealController'
       }
     }
@@ -177,6 +170,16 @@ angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate
       }
     }
   })
+// blank - when need to download an app
+  .state('app.blank', {
+    url: '/blank',
+    views: {
+      'mainContent': {
+        templateUrl: 'templates/blank.html',
+        controller: 'BlankController' 
+      }
+    }
+  })
 
  // login
    .state('app.login', {
@@ -204,3 +207,16 @@ angular.module('wiomPlate', ['ionic','ionic-datepicker', 'ngCordova', 'wiomPlate
 //  $urlRouterProvider.otherwise('/app/login');
 
 });
+/*
+.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
+  $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+    if (!AuthService.isAuthenticated()) {
+      console.log('in app.run',next.name);
+      if (next.name !== 'app.login' && next.name !== 'app.register') {
+        event.preventDefault();
+        $state.go('app.login');
+      }
+    }
+  })
+})
+/*/
