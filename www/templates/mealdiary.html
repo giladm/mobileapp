@@ -1,18 +1,20 @@
 <ion-view view-title="Meal Diary" cache-view="false" >
   <ion-content class="list">
-    <ion-item  ng-repeat="meal in meals.list" >
-      <div class="item item-divider">
-        <span style="float:left">{{meal.date}}</span>
-        <span style="float:right">Total Calories: &nbsp {{meal.total}}</span>
-      </div>
-      <ion-item class="item-thumbnail-left item-radio-right item-text-wrap" ng-repeat="type in meal.types">
-        <img ng-src="{{type.icon}}" class="smallPicture">
-        <span style="bold font-size:75%; ">{{type.mt}}</span>
-        <div><span style="font-size:75%; ">{{type.name}}</span></div>    
-        <span style="color:black; float:right; font-size:60%">&nbsp Calories</span>
-        <span style="color:blue; float:right">{{type.cal}}</span>
-      </ion-item>
-    </ion-item>    
+    <ion-scroll direction="y">
+      <ion-item  ng-repeat="meal in meals.list" >
+        <div class="item item-divider">
+          <span style="float:left">{{meal.date}}</span>
+          <span style="float:right">Total Calories: &nbsp {{meal.total}}</span>
+        </div>
+        <ion-item class="item-thumbnail-left item-radio-right item-text-wrap" ng-repeat="type in meal.types">
+          <img ng-src="{{type.icon}}" class="smallPicture">
+          <span style="bold font-size:75%; ">{{type.mt}}</span>
+          <div><span style="font-size:75%; ">{{type.name}}</span></div>    
+          <span style="color:black; float:right; font-size:60%">&nbsp Calories</span>
+          <span style="color:blue; float:right">{{type.cal}}</span>
+        </ion-item>
+      </ion-item>    
+    </ion-scroll>
   </ion-content>
 </ion-view>
 

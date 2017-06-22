@@ -3,11 +3,13 @@
         <div class="item item-divider">
             {{instructUser1}}
         </div>    
-        <ion-radio class="item-thumbnail-left item-radio-right item-text-wrap" ng-value="{{result.dix}}" ng-click='newDishSelected({{result.dix}})' ng-repeat="result in results.scores">
-            <img ng-src="{{result.icon}}">
-            <h2>{{result.foodId}}</h2>
-            <h4>{{result.calories}}</h4>
-        </ion-radio>
+        <ion-scroll direction="y">
+          <ion-radio class="item-thumbnail-left item-radio-right item-text-wrap" ng-value="{{result.dix}}" ng-click='newDishSelected({{result.dix}})' ng-repeat="result in results.scores">
+              <img ng-src="{{result.icon}}">
+              <h2>{{result.foodId}}</h2>
+              <h4>{{result.calories}}</h4>
+          </ion-radio>
+        </ion-scroll>
         <div class="card">
           <div class="padding" ng-if="isDishSelected==true">
             <button type="button" class="button button-block button-positive" ng-click="gotoDishDetails()">Yes. This is my dish</button>

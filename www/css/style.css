@@ -102,6 +102,8 @@ p.info {
     border-bottom: solid 1px grey;
 }
 
-
+ion-scroll[direction=y] {
+  height: calc(100vh - 33px - 33px - 90px - 15px);
+}
 
 

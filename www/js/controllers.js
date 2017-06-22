@@ -638,12 +638,16 @@ angular.module('wiomPlate.controllers', [])
                     totalEnergy +=energy ;
                     //console.log('totalEnergy +=energy',i,totalEnergy,energy);
                     var mr = meals[i].mr[0];
-                    if (mr.icon ) {
-                        icon =mr.icon;
+                    if (mr) {
+                        if (mr.icon ) {
+                            icon =mr.icon;
+                        } else {
+                            icon ='images/foodicon.png';
+                        } 
+                        types.push({'mt':meals[i].mt,'cal':energy,'icon':icon,'name':mr.foodId});
                     } else {
-                        icon ='images/foodicon.png';
-                    } 
-                    types.push({'mt':meals[i].mt,'cal':energy,'icon':icon,'name':mr.foodId});
+                        console.log('logical error. dish is half backed',i,meals[i]);
+                    }
                 }
                 if (meals.length > 0) {
                     var meal={'date':date,'types':types,'total':Math.round(totalEnergy)}
